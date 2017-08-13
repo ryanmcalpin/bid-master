@@ -1,0 +1,32 @@
+.container {
+  width: 80%;
+}
+
+h1 {
+  font-size: 40px;
+  margin:20px 0 0;
+}
+
+input {
+  font-size: 26px !important;
+  margin-bottom: 10px !important;
+  height: 50% !important;
+  padding: 4px 0 4px !important;
+}
+
+label {
+  font-size: 16px;
+
+}
+label.active {
+  color: black !important;
+}
+
+.row {
+  margin-bottom: 0;
+}
+
+button {
+  margin-top: 20px;
+  width: 100%;
+}
