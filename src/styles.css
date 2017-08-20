@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+
+button {
+  margin: 20px auto;
+  display: block !important;
+  font-size: 20px !important;
+}
+
+
+@media only screen and (min-device-width: 320px){
+  button {
+    width: 90%;
+  }
+}
+
+@media only screen and (min-device-width: 768px){
+  button {
+    width: 60%;
+  }
+}
