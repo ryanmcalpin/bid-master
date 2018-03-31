@@ -25,11 +25,21 @@ export class BidSheetFormComponent implements OnInit {
   pillars: number;
   pressure: number;
   vegetation: number;
+  sidingRepair: number;
+  primer: number;
+  caulk: number;
+  plastic: number;
+  tape: number;
   additionalHours: number;
   additionalFlat: number;
 
   totalGallons: number = 0;
   totalHours: number = 0;
+
+  averageWage: number = 15;
+  adjustedWage: number = this.averageWage + 1.5;
+
+  totalPrice: number = 0;
 
   constructor(private fb: FormBuilder) {
 
@@ -51,8 +61,13 @@ export class BidSheetFormComponent implements OnInit {
       pillars: ['', Validators.required],
       pressure: ['', Validators.required],
       vegetation: ['', Validators.required],
+      sidingRepair: ['', Validators.required],
+      primer: ['', Validators.required],
+      caulk: ['', Validators.required],
+      plastic: ['', Validators.required],
+      tape: ['', Validators.required],
       additionalHours: ['', Validators.required],
-      additionalFlat: ['', Validators.required]
+      additionalFlat: ['', Validators.required],
     })
   }
 
@@ -73,16 +88,45 @@ export class BidSheetFormComponent implements OnInit {
     this.pillars = this.form.value.pillars;
     this.pressure = this.form.value.pressure;
     this.vegetation = this.form.value.vegetation;
+    this.sidingRepair = this.form.value.sidingRepair;
+    this.primer = this.form.value.primer;
+    this.caulk = this.form.value.caulk;
+    this.plastic = this.form.value.plastic;
+    this.tape = this.form.value.tape;
     this.additionalHours = this.form.value.additionalHours;
     this.additionalFlat = this.form.value.additionalFlat;
 
     this.totalGallons = 0;
-
     this.totalGallons += this.siding / 300;
     this.totalGallons += this.soffits / 150;
+    this.totalGallons += this.fascia / 100;
     this.totalGallons += this.foundation / 300;
 
-    console.log(this.totalGallons);
+    this.totalHours = 0;
+    this.totalHours += this.siding / 100;
+    this.totalHours += this.soffits / 10;
+    this.totalHours += this.fascia / 20;
+    this.totalHours += this.windows;
+    this.totalHours += this.windowFrames + this.doorFrames;
+    this.totalHours += this.foundation / 300;
+    this.totalHours += this.scraping / 10;
+    this.totalHours += this.obstructions / 3;
+    this.totalHours += this.doors * 1.5;
+    this.totalHours += this.pillars / 2;
+    this.totalHours += this.glazing / 5;
+    this.totalHours += this.pressure + this.vegetation + this.additionalHours;
+
+
+    this.totalPrice = 0;
+    this.totalPrice += this.sidingRepair / 10 * 225;
+    this.totalPrice += this.totalGallons * 37;
+    this.totalPrice += this.primer * 25;
+    this.totalPrice += this.caulk * 5;
+    this.totalPrice += this.plastic * 15;
+    this.totalPrice += this.tape * 6;
+    this.totalPrice += this.totalHours * this.adjustedWage;
+
+    console.log(this.totalPrice);
   }
 
 
