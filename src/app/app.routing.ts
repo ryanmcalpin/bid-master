@@ -3,6 +3,7 @@ import { ModuleWithProviders } from '@angular/core';
 
 import { HomeComponent } from './home/home.component'
 import { BidSheetFormComponent } from './bid-sheet-form/bid-sheet-form.component';
+import { BidSheetComponent } from './bid-sheet/bid-sheet.component';
 
 const appRoutes: Routes = [
   {
@@ -12,6 +13,10 @@ const appRoutes: Routes = [
   {
     path: 'new',
     component: BidSheetFormComponent
+  },
+  {
+    path: 'bid',
+    component: BidSheetComponent
   }
 ];
 

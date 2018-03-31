@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bid-sheet-form',
@@ -41,7 +42,8 @@ export class BidSheetFormComponent implements OnInit {
 
   totalPrice: number = 0;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private router: Router) {
 
   }
 
@@ -127,6 +129,8 @@ export class BidSheetFormComponent implements OnInit {
     this.totalPrice += this.totalHours * this.adjustedWage;
 
     console.log(this.totalPrice);
+
+    this.router.navigate(['bid']);
   }
 
 
