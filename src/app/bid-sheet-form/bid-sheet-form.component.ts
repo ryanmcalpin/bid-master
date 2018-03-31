@@ -12,7 +12,7 @@ export class BidSheetFormComponent implements OnInit {
   form: FormGroup;
 
   siding: number;
-  soffit: number;
+  soffits: number;
   fascia: number;
   glazing: number;
   foundation: number;
@@ -25,8 +25,11 @@ export class BidSheetFormComponent implements OnInit {
   pillars: number;
   pressure: number;
   vegetation: number;
-  additionalHrs: number;
+  additionalHours: number;
   additionalFlat: number;
+
+  totalGallons: number = 0;
+  totalHours: number = 0;
 
   constructor(private fb: FormBuilder) {
 
@@ -35,7 +38,7 @@ export class BidSheetFormComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       siding: ['', Validators.required],
-      soffit: ['', Validators.required],
+      soffits: ['', Validators.required],
       fascia: ['', Validators.required],
       glazing: ['', Validators.required],
       foundation: ['', Validators.required],
@@ -48,16 +51,16 @@ export class BidSheetFormComponent implements OnInit {
       pillars: ['', Validators.required],
       pressure: ['', Validators.required],
       vegetation: ['', Validators.required],
-      additionalHrs: ['', Validators.required],
+      additionalHours: ['', Validators.required],
       additionalFlat: ['', Validators.required]
     })
   }
 
   calculateBid() {
-    console.log(this.form.value.soffit);
+    console.log(this.form.value.soffits);
 
     this.siding = this.form.value.siding;
-    this.soffit = this.form.value.soffit;
+    this.soffits = this.form.value.soffits;
     this.fascia = this.form.value.fascia;
     this.glazing = this.form.value.glazing;
     this.foundation = this.form.value.foundation;
@@ -70,8 +73,16 @@ export class BidSheetFormComponent implements OnInit {
     this.pillars = this.form.value.pillars;
     this.pressure = this.form.value.pressure;
     this.vegetation = this.form.value.vegetation;
-    this.additionalHrs = this.form.value.additionalHrs;
+    this.additionalHours = this.form.value.additionalHours;
     this.additionalFlat = this.form.value.additionalFlat;
+
+    this.totalGallons = 0;
+
+    this.totalGallons += this.siding / 300;
+    this.totalGallons += this.soffits / 150;
+    this.totalGallons += this.foundation / 300;
+
+    console.log(this.totalGallons);
   }
 
 
