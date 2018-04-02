@@ -74,8 +74,6 @@ export class BidSheetFormComponent implements OnInit {
   }
 
   calculateBid() {
-    console.log(this.form.value.soffits);
-
     this.siding = this.form.value.siding;
     this.soffits = this.form.value.soffits;
     this.fascia = this.form.value.fascia;
