@@ -10,7 +10,7 @@ import { DbService } from '../db.service';
 })
 export class BidSheetFormComponent implements OnInit {
 
-  title: String = 'KlabbyPro';
+  title: string = 'KlabbyPro';
   form: FormGroup;
 
   siding: number;
@@ -34,6 +34,7 @@ export class BidSheetFormComponent implements OnInit {
   tape: number;
   additionalHours: number;
   additionalFlat: number;
+  clientName: string;
 
   totalGallons: number = 0;
   totalHours: number = 0;
@@ -72,6 +73,7 @@ export class BidSheetFormComponent implements OnInit {
       tape: ['', Validators.required],
       additionalHours: ['', Validators.required],
       additionalFlat: ['', Validators.required],
+      clientName: ['', Validators.required],
     })
   }
 
@@ -98,6 +100,7 @@ export class BidSheetFormComponent implements OnInit {
     this.tape = this.form.value.tape;
     this.additionalHours = this.form.value.additionalHours;
     this.additionalFlat = this.form.value.additionalFlat;
+    this.clientName = this.form.value.clientName;
 
     var inputValues = { siding: this.siding, soffits: this.soffits };
 
@@ -131,8 +134,7 @@ export class BidSheetFormComponent implements OnInit {
     this.totalPrice += this.tape * 6;
     this.totalPrice += this.totalHours * this.adjustedWage;
 
-    console.log(this.totalPrice);
-    this.db.createBid(inputValues, this.totalPrice);
+    this.db.createBid(this.clientName, inputValues, this.totalPrice.toFixed(2));
 
     this.router.navigate(['bid']);
   }

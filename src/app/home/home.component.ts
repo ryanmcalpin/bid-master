@@ -15,10 +15,10 @@ export class HomeComponent implements OnInit {
   constructor(public db: DbService) { }
 
   ngOnInit() {
-    this.db.getTestData()
-      .takeUntil(this.ngUnsubscribe).subscribe(data => {
-        this.testValue = data.$value;
-      })
+    // this.db.getTestData()
+    //   .takeUntil(this.ngUnsubscribe).subscribe(data => {
+    //     this.testValue = data.$value;
+    //   })
   }
 
   ngOnDestroy() {
