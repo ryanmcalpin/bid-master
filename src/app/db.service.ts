@@ -10,9 +10,9 @@ export class DbService {
     this.bids = db.list('/bids');
   }
 
-  createBid(clientName, inputs, totalPrice) {
+  createBid(subgallons, clientName, inputs, totalPrice) {
     var bidKey = this.bids.push(totalPrice).key;
-    var updates = { total: totalPrice, inputValues: inputs, clientName: clientName };
+    var updates = { total: totalPrice, inputValues: inputs, clientName: clientName, subgallons: subgallons };
     this.bids.update(bidKey, updates);
   }
 

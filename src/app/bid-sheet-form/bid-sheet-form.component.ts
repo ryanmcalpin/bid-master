@@ -102,13 +102,42 @@ export class BidSheetFormComponent implements OnInit {
     this.additionalFlat = this.form.value.additionalFlat;
     this.clientName = this.form.value.clientName;
 
-    var inputValues = { siding: this.siding, soffits: this.soffits };
+    var inputValues = { siding: this.siding,
+                        soffits: this.soffits,
+                        fascia: this.fascia,
+                        glazing: this.glazing,
+                        foundation: this.foundation,
+                        scraping: this.scraping,
+                        windows: this.windows,
+                        windowFrames: this.windowFrames,
+                        doors: this.doors,
+                        doorFrames: this.doorFrames,
+                        obstructions: this.obstructions,
+                        pillars: this.pillars,
+                        pressure: this.pressure,
+                        vegetation: this.vegetation,
+                        sidingRepair: this.sidingRepair,
+                        primer: this.primer,
+                        caulk: this.caulk,
+                        plastic: this.plastic,
+                        tape: this.tape,
+                        additionalHours: this.additionalHours,
+                        additionalFlat: this.additionalFlat};
+
+    var subgallons = {};
+    var sidingGallons = this.siding / 300;
+    var soffitsGallons = this.soffits / 150
+    var fasciaGallons = this.fascia / 100;
+    var foundationGallons = this.foundation / 300;
+    subgallons = { sidingGallons: sidingGallons, soffitsGallons: soffitsGallons, fasciaGallons: fasciaGallons, foundationGallons: foundationGallons };
 
     this.totalGallons = 0;
-    this.totalGallons += this.siding / 300;
-    this.totalGallons += this.soffits / 150;
-    this.totalGallons += this.fascia / 100;
-    this.totalGallons += this.foundation / 300;
+    for (var key in subgallons) {
+      if (subgallons.hasOwnProperty(key)) {
+        this.totalGallons += subgallons[key];
+      }
+    }
+    console.log(this.totalGallons);
 
     this.totalHours = 0;
     this.totalHours += this.siding / 100;
@@ -124,7 +153,7 @@ export class BidSheetFormComponent implements OnInit {
     this.totalHours += this.glazing / 5;
     this.totalHours += this.pressure + this.vegetation + this.additionalHours;
 
-
+    // numbers need to be converted to variables for easy editing
     this.totalPrice = 0;
     this.totalPrice += this.sidingRepair / 10 * 225;
     this.totalPrice += this.totalGallons * 37;
@@ -134,7 +163,7 @@ export class BidSheetFormComponent implements OnInit {
     this.totalPrice += this.tape * 6;
     this.totalPrice += this.totalHours * this.adjustedWage;
 
-    this.db.createBid(this.clientName, inputValues, this.totalPrice.toFixed(2));
+    this.db.createBid(subgallons, this.clientName, inputValues, this.totalPrice.toFixed(2));
 
     this.router.navigate(['bid']);
   }
