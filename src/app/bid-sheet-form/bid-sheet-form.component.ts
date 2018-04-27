@@ -42,8 +42,6 @@ export class BidSheetFormComponent implements OnInit {
   averageWage: number = 15;
   adjustedWage: number = this.averageWage + 1.5;
 
-  totalPrice: number = 0;
-
   constructor(private fb: FormBuilder,
               private router: Router,
               private db: DbService) {
@@ -124,6 +122,8 @@ export class BidSheetFormComponent implements OnInit {
                         additionalHours: this.additionalHours,
                         additionalFlat: this.additionalFlat};
 
+
+    // numbers need to be converted to variables for easy editing
     var subgallons = {};
     var sidingGallons = this.siding / 300;
     var soffitsGallons = this.soffits / 150
@@ -160,17 +160,24 @@ export class BidSheetFormComponent implements OnInit {
       }
     }
 
-    // numbers need to be converted to variables for easy editing
-    this.totalPrice = 0;
-    this.totalPrice += this.sidingRepair / 10 * 225;
-    this.totalPrice += this.totalGallons * 37;
-    this.totalPrice += this.primer * 25;
-    this.totalPrice += this.caulk * 5;
-    this.totalPrice += this.plastic * 15;
-    this.totalPrice += this.tape * 6;
-    this.totalPrice += this.totalHours * this.adjustedWage;
+    var subtotals = {};
+    var sidingRepairSubtotal = this.sidingRepair / 10 * 225;
+    var paintSubtotal = this.totalGallons * 37;
+    var primerSubtotal = this.primer * 25;
+    var caulkSubtotal = this.caulk * 5;
+    var plasticSubtotal = this.plastic * 15;
+    var tapeSubtotal = this.tape * 6;
+    var wagesSubtotal = this.totalHours * this.adjustedWage;
+    subtotals = { sidingRepairSubtotal: +sidingRepairSubtotal.toFixed(2), paintSubtotal: +paintSubtotal.toFixed(2), primerSubtotal: +primerSubtotal.toFixed(2), caulkSubtotal: +caulkSubtotal.toFixed(2), plasticSubtotal: +plasticSubtotal.toFixed(2), tapeSubtotal: +tapeSubtotal.toFixed(2), wagesSubtotal: +wagesSubtotal.toFixed(2) }
 
-    this.db.createBid(this.totalHours, this.totalGallons, subhours, subgallons, this.clientName, inputValues, this.totalPrice.toFixed(2));
+    var totalPrice = 0;
+    for (var key in subtotals) {
+      if (subtotals.hasOwnProperty(key)) {
+        totalPrice += subtotals[key];
+      }
+    }
+
+    this.db.createBid(totalPrice, this.totalHours, this.totalGallons, subtotals, subhours, subgallons, this.clientName, inputValues);
 
     this.router.navigate(['bid']);
   }
