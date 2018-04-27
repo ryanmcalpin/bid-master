@@ -14,6 +14,8 @@ export class DbService {
     var bidKey = this.bids.push(totalPrice).key;
     var updates = { totalPrice: totalPrice, inputValues: inputs, clientName: clientName, subgallons: subgallons, totalHours: totalHours, totalGallons: totalGallons, subhours: subhours, subtotals: subtotals };
     this.bids.update(bidKey, updates);
+
+    return bidKey;
   }
 
 }

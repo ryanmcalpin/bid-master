@@ -15,7 +15,7 @@ const appRoutes: Routes = [
     component: BidSheetFormComponent
   },
   {
-    path: 'bid',
+    path: 'bids/:bidId',
     component: BidSheetComponent
   }
 ];

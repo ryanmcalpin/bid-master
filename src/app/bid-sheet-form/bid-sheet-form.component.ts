@@ -177,9 +177,9 @@ export class BidSheetFormComponent implements OnInit {
       }
     }
 
-    this.db.createBid(totalPrice, this.totalHours, this.totalGallons, subtotals, subhours, subgallons, this.clientName, inputValues);
+    var fbKey = this.db.createBid(+totalPrice.toFixed(2), +this.totalHours.toFixed(2), +this.totalGallons.toFixed(2), subtotals, subhours, subgallons, this.clientName, inputValues);
 
-    this.router.navigate(['bid']);
+    this.router.navigate(['bids', fbKey]);
   }
 
 
