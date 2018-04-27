@@ -129,7 +129,7 @@ export class BidSheetFormComponent implements OnInit {
     var soffitsGallons = this.soffits / 150
     var fasciaGallons = this.fascia / 100;
     var foundationGallons = this.foundation / 300;
-    subgallons = { sidingGallons: sidingGallons, soffitsGallons: soffitsGallons, fasciaGallons: fasciaGallons, foundationGallons: foundationGallons };
+    subgallons = { sidingGallons: +sidingGallons.toFixed(2), soffitsGallons: +soffitsGallons.toFixed(2), fasciaGallons: +fasciaGallons.toFixed(2), foundationGallons: +foundationGallons.toFixed(2) };
 
     this.totalGallons = 0;
     for (var key in subgallons) {
@@ -137,21 +137,28 @@ export class BidSheetFormComponent implements OnInit {
         this.totalGallons += subgallons[key];
       }
     }
-    console.log(this.totalGallons);
+
+    var subhours = {};
+    var sidingHours = this.siding / 100;
+    var soffitsHours = this.soffits / 10;
+    var fasciaHours = this.fascia / 20;
+    var windowsHours = this.windows;
+    var windowFramesHours = this.windowFrames;
+    var foundationHours = this.foundation / 300;
+    var scrapingHours = this.scraping / 10;
+    var obstructionsHours = this.obstructions / 3;
+    var doorsHours = this.doors * 1.5;
+    var doorFramesHours = this.doorFrames;
+    var pillarsHours = this.pillars / 2;
+    var glazingHours = this.glazing / 5;
+    subhours = { sidingHours: +sidingHours.toFixed(2), soffitsHours: +soffitsHours.toFixed(2), fasciaHours: +fasciaHours.toFixed(2), windowsHours: +windowsHours.toFixed(2), windowFramesHours: +windowFramesHours.toFixed(2), foundationHours: +foundationHours.toFixed(2), scrapingHours: +scrapingHours.toFixed(2), obstructionsHours: +obstructionsHours.toFixed(2), doorsHours: +doorsHours.toFixed(2), doorFramesHours: +doorFramesHours.toFixed(2), pillarsHours: +pillarsHours.toFixed(2), glazingHours: +glazingHours.toFixed(2) };
 
     this.totalHours = 0;
-    this.totalHours += this.siding / 100;
-    this.totalHours += this.soffits / 10;
-    this.totalHours += this.fascia / 20;
-    this.totalHours += this.windows;
-    this.totalHours += this.windowFrames + this.doorFrames;
-    this.totalHours += this.foundation / 300;
-    this.totalHours += this.scraping / 10;
-    this.totalHours += this.obstructions / 3;
-    this.totalHours += this.doors * 1.5;
-    this.totalHours += this.pillars / 2;
-    this.totalHours += this.glazing / 5;
-    this.totalHours += this.pressure + this.vegetation + this.additionalHours;
+    for (var key in subhours) {
+      if (subhours.hasOwnProperty(key)) {
+        this.totalHours += subhours[key];
+      }
+    }
 
     // numbers need to be converted to variables for easy editing
     this.totalPrice = 0;
@@ -163,7 +170,7 @@ export class BidSheetFormComponent implements OnInit {
     this.totalPrice += this.tape * 6;
     this.totalPrice += this.totalHours * this.adjustedWage;
 
-    this.db.createBid(subgallons, this.clientName, inputValues, this.totalPrice.toFixed(2));
+    this.db.createBid(this.totalHours, this.totalGallons, subhours, subgallons, this.clientName, inputValues, this.totalPrice.toFixed(2));
 
     this.router.navigate(['bid']);
   }
