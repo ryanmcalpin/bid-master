@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import { DbService } from '../db.service';
 
 @Component({
   selector: 'app-bid-sheet-form',
@@ -43,7 +44,8 @@ export class BidSheetFormComponent implements OnInit {
   totalPrice: number = 0;
 
   constructor(private fb: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private db: DbService) {
 
   }
 
@@ -74,6 +76,7 @@ export class BidSheetFormComponent implements OnInit {
   }
 
   calculateBid() {
+    // should be validated
     this.siding = this.form.value.siding;
     this.soffits = this.form.value.soffits;
     this.fascia = this.form.value.fascia;
@@ -95,6 +98,8 @@ export class BidSheetFormComponent implements OnInit {
     this.tape = this.form.value.tape;
     this.additionalHours = this.form.value.additionalHours;
     this.additionalFlat = this.form.value.additionalFlat;
+
+    var inputValues = { siding: this.siding, soffits: this.soffits };
 
     this.totalGallons = 0;
     this.totalGallons += this.siding / 300;
@@ -127,6 +132,7 @@ export class BidSheetFormComponent implements OnInit {
     this.totalPrice += this.totalHours * this.adjustedWage;
 
     console.log(this.totalPrice);
+    this.db.createBid(inputValues, this.totalPrice);
 
     this.router.navigate(['bid']);
   }
