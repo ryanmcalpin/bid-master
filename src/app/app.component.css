@@ -1,19 +1,19 @@
 h1 {
   font-size: 40px;
-  margin:20px auto 0;
+  margin: 20px auto 0;
   text-align: center;
-  transition: 500ms ease;
 }
 
-h1:hover {
-  cursor: pointer;
-  text-shadow: 4px 5px 0px lightgrey;
+h1 span {
+  text-shadow: 0 0 0 lightgrey;
+  transition: text-shadow .5s ease;
+}
 
+h1 span:hover {
+  cursor: pointer;
+  text-shadow: 4px 5px 0 lightgrey;
 }
 
 .header {
   margin-bottom: 0;
-}
-
-.content {
 }
