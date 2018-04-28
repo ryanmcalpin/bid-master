@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { DbService } from '../db.service';
+import { FirebaseListObservable } from 'angularfire2/database';
 import 'rxjs/add/operator/takeUntil';
 import { Subject } from 'rxjs/Subject';
+import { DbService } from '../db.service';
 
 @Component({
   selector: 'app-home',
