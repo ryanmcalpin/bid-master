@@ -61,7 +61,13 @@ export class DbService {
     var hour = ts.getHours();
     var min = ts.getMinutes();
 
-    var formattedDate = month + ' ' + date + ', ' + year + ' ' + hour + ':' + min;
+    var ampm = 'am';
+    if (hour > 12) {
+      hour -= 12;
+      ampm = 'pm';
+    }
+
+    var formattedDate = month + ' ' + date + ', ' + year + ', ' + hour + ':' + min + ampm;
     return formattedDate;
   }
 
