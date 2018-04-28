@@ -1,5 +1,7 @@
 <br>
 <h5>Past Bids:</h5>
 <div *ngFor="let bid of bids">
-  <a routerLink="/bids/{{bid.$key}}">{{bid.clientName + ', $' + bid.totalPrice}}</a>
+  <a routerLink="/bids/{{bid.$key}}">
+    {{bid.dateTime + ' - ' + bid.clientName + ', $' + bid.totalPrice}}
+  </a>
 </div>
