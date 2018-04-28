@@ -14,6 +14,7 @@ import { BidSheetComponent } from './bid-sheet/bid-sheet.component';
 import { BidSheetFormComponent } from './bid-sheet-form/bid-sheet-form.component';
 import { HomeComponent } from './home/home.component';
 import { RatesComponent } from './rates/rates.component';
+import { ReversePipe } from './reverse.pipe';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -28,7 +29,8 @@ export const firebaseConfig = {
     BidSheetComponent,
     BidSheetFormComponent,
     HomeComponent,
-    RatesComponent
+    RatesComponent,
+    ReversePipe
   ],
   imports: [
     BrowserModule,
