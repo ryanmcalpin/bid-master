@@ -16,6 +16,8 @@ A custom bid sheet calculator for a paint contractor. Made with angular and mate
 ## Improvements
 * Implement validators
 * Add nav options 'Home' and 'New Bid'
+* Display bids on home page
+* Add timestamp to bids so the most recent bids are displayed at top
 * Implement a way to email or print bid per client's preference
 
 
