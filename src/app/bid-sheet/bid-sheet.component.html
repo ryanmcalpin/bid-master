@@ -2,3 +2,4 @@
 <p>Total: {{arrived ? '$' + bid.totalPrice : '...'}}</p>
 <p>Labor: {{arrived ? '$' + bid.subtotals.wagesSubtotal + ', ' : '...'}}{{arrived ? bid.totalHours + ' hours' : '...'}}</p>
 <p>Paint: {{arrived ? '$' + bid.subtotals.paintSubtotal + ', ' : '...'}}{{arrived ? bid.totalGallons + ' gallons' : '...'}}</p>
+<p>Others: {{arrived ? '$' + othersTotal : '...'}}</p>

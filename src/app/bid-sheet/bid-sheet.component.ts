@@ -16,6 +16,7 @@ export class BidSheetComponent implements OnInit {
   bid: Promise<Object>|null = null;
   arrived: boolean = false;
   private resolve: Function|null = null;
+  othersTotal: string;
 
   constructor(private db: DbService,
               private route: ActivatedRoute,
@@ -29,6 +30,8 @@ export class BidSheetComponent implements OnInit {
         .subscribe(bid => {
           this.bid = bid;
           this.arrived = true;
+
+          this.othersTotal = this.db.getOthersSubtotal(bid);
         });
     });
   }

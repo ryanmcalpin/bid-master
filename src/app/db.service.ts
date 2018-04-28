@@ -33,4 +33,15 @@ export class DbService {
     return this.db.object('/bids/' + id);
   }
 
+  getOthersSubtotal(bid: Object) {
+    var othersSubtotal = 0;
+    var subtotals = bid.subtotals;
+    for (var sub in subtotals) {
+      if (sub != 'paintSubtotal' && sub != 'wagesSubtotal') {
+        othersSubtotal += subtotals[sub];
+      }
+    }
+    return othersSubtotal.toFixed(2);
+  }
+
 }
