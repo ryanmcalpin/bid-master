@@ -12,7 +12,7 @@ export class DbService {
 
   createBid(totalPrice, totalHours, totalGallons, subtotals, subhours, subgallons, clientName, inputs) {
     var bidKey = this.bids.push(totalPrice).key;
-    // var date = this.getTimestamp();
+    var timestamp = this.getTimestamp();
     var updates = { totalPrice: totalPrice,
                     inputValues: inputs,
                     clientName: clientName,
@@ -20,7 +20,8 @@ export class DbService {
                     totalHours: totalHours,
                     totalGallons: totalGallons,
                     subhours: subhours,
-                    subtotals: subtotals };
+                    subtotals: subtotals,
+                    timestamp: timestamp};
 
     this.bids.update(bidKey, updates);
     return bidKey;

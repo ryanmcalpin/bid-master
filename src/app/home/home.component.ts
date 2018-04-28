@@ -20,10 +20,6 @@ export class HomeComponent implements OnInit {
       .takeUntil(this.ngUnsubscribe).subscribe(data => {
         this.bids = data;
       })
-
-      var formattedDate = this.db.convertTimestamp(this.db.getTimestamp());
-
-      console.log(formattedDate);
   }
 
   ngOnDestroy() {
