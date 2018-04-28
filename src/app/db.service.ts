@@ -12,6 +12,7 @@ export class DbService {
 
   createBid(totalPrice, totalHours, totalGallons, subtotals, subhours, subgallons, clientName, inputs) {
     var bidKey = this.bids.push(totalPrice).key;
+    // var date = this.getTimestamp();
     var updates = { totalPrice: totalPrice,
                     inputValues: inputs,
                     clientName: clientName,
@@ -42,6 +43,26 @@ export class DbService {
       }
     }
     return othersSubtotal.toFixed(2);
+  }
+
+  getTimestamp() {
+    if (!Date.now) {
+      Date.now = function() { return new Date().getTime(); }
+    }
+    return Date.now();
+  }
+
+  convertTimestamp(timestamp: number) {
+    var ts = new Date(timestamp);
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var year = ts.getFullYear();
+    var month = months[ts.getMonth()];
+    var date = ts.getDate();
+    var hour = ts.getHours();
+    var min = ts.getMinutes();
+
+    var formattedDate = month + ' ' + date + ', ' + year + ' ' + hour + ':' + min;
+    return formattedDate;
   }
 
 }
