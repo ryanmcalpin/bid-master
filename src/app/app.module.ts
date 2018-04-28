@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { BidSheetComponent } from './bid-sheet/bid-sheet.component';
 import { BidSheetFormComponent } from './bid-sheet-form/bid-sheet-form.component';
 import { HomeComponent } from './home/home.component';
+import { RatesComponent } from './rates/rates.component';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -26,7 +27,8 @@ export const firebaseConfig = {
     AppComponent,
     BidSheetComponent,
     BidSheetFormComponent,
-    HomeComponent
+    HomeComponent,
+    RatesComponent
   ],
   imports: [
     BrowserModule,
