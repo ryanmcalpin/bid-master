@@ -1,2 +1,4 @@
 <button routerLink="new" type="button" class="waves-effect waves-light btn">New Bid</button>
-<p>{{testValue}}</p>
+<div *ngFor="let bid of bids">
+  <a routerLink="/bids/{{bid.$key}}">{{bid.clientName + ', $' + bid.totalPrice}}</a>
+</div>

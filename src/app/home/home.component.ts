@@ -10,15 +10,15 @@ import { Subject } from 'rxjs/Subject';
 })
 export class HomeComponent implements OnInit {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  testValue: String;
+  bids: FirebaseListObservable<any>;
 
   constructor(public db: DbService) { }
 
   ngOnInit() {
-    // this.db.getTestData()
-    //   .takeUntil(this.ngUnsubscribe).subscribe(data => {
-    //     this.testValue = data.$value;
-    //   })
+    this.db.getBids()
+      .takeUntil(this.ngUnsubscribe).subscribe(data => {
+        this.bids = data;
+      })
   }
 
   ngOnDestroy() {
