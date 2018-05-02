@@ -1,7 +1,7 @@
 <div class="navbar-fixed">
   <nav>
     <div class="nav-wrapper teal">
-      <a routerLink="/" class="brand-logo left">Klabby Pro</a>
+      <a (click)="logoClick()" class="brand-logo left">Klabby Pro</a>
       <ul class="right">
         <li><a routerLink="/rates">Rates</a></li>
         <li><a routerLink="/new">New Bid</a></li>
@@ -13,4 +13,11 @@
   <div class="row content">
     <router-outlet></router-outlet>
   </div>
+</div>
+
+<div *ngIf="this.user">
+  <p>user</p>
+</div>
+<div *ngIf="!this.user">
+  <p>no user</p>
 </div>

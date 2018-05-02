@@ -7,7 +7,10 @@ import { routing } from './app.routing';
 import { masterFirebaseConfig } from './api-keys';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 import { DbService } from './db.service';
+import { AuthService } from './auth.service';
 
 import { AppComponent } from './app.component';
 import { BidSheetComponent } from './bid-sheet/bid-sheet.component';
@@ -39,10 +42,12 @@ export const firebaseConfig = {
     ReactiveFormsModule,
     routing,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [
-    DbService
+    DbService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
