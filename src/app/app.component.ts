@@ -32,17 +32,6 @@ export class AppComponent implements OnInit {
       if (this.user) {
         emails.forEach(email => { this.user.email == email ? this.userAllowed = true : null; });
       }
-
-      // if (this.user) {
-      //   this.db.getUserById(this.user.uid)
-      //   .takeUntil(this.ngUnsubscribe).subscribe(dbuser=>{
-      //     this.userObjFromDb = dbuser;
-      //   });
-      //   this.db.getTeamsAssociatedWithUser(this.user.uid)
-      //   .takeUntil(this.ngUnsubscribe).subscribe(teams=>{
-      //     this.teams = teams;
-      //   });
-      // }
     });
   }
 
@@ -53,7 +42,7 @@ export class AppComponent implements OnInit {
 
   logoClick() {
     if (this.user) {
-      this.auth.switchUser();
+      this.router.navigate(['/']);
     } else {
       this.auth.loginGoogle();
     }
