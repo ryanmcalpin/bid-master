@@ -1,13 +1,25 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
+import { AuthService } from './auth.service';
+import 'rxjs/add/operator/takeUntil';
+import { Subject } from 'rxjs/Subject';
+import { User } from './user.model';
 
 @Injectable()
 export class DbService {
   bids: FirebaseListObservable<any>;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
+  user: any;
 
-  constructor(private db: AngularFireDatabase) {
-    this.bids = db.list('/bids');
+  constructor(private db: AngularFireDatabase, private auth: AuthService) {
+    this.auth.getCurrentUser()
+    .takeUntil(this.ngUnsubscribe).subscribe(user=>{
+      this.user = user;
+      if (this.user) {
+        this.bids = db.list('/users/' + user.uid + '/bids');
+      }
+    });
   }
 
   createBid(totalPrice, totalHours, totalGallons, subtotals, subhours, subgallons, clientName, inputs) {
@@ -34,7 +46,7 @@ export class DbService {
   }
 
   getBidById(id: string) {
-    return this.db.object('/bids/' + id);
+    return this.db.object('/users/' + this.user.uid + '/bids/' + id);
   }
 
   getOthersSubtotal(bid: Object) {

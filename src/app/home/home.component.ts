@@ -3,6 +3,7 @@ import { FirebaseListObservable } from 'angularfire2/database';
 import 'rxjs/add/operator/takeUntil';
 import { Subject } from 'rxjs/Subject';
 import { DbService } from '../db.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-home',
@@ -10,15 +11,20 @@ import { DbService } from '../db.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  user: any = null;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   bids: FirebaseListObservable<any>;
 
-  constructor(public db: DbService) { }
+  constructor(public db: DbService, private auth: AuthService) { }
 
   ngOnInit() {
-    this.db.getBids()
-      .takeUntil(this.ngUnsubscribe).subscribe(data => {
-        this.bids = data;
+    this.auth.getCurrentUser()
+      .takeUntil(this.ngUnsubscribe).subscribe(user => {
+        this.user = user;
+        this.db.getBids()
+        .takeUntil(this.ngUnsubscribe).subscribe(data => {
+          this.bids = data;
+        })
       })
   }
 

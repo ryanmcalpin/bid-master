@@ -35,9 +35,12 @@ testem.log
 /e2e/*.js
 /e2e/*.map
 
-#System Files
+# System Files
 .DS_Store
 Thumbs.db
 
 # Firebase credentials
 /src/app/api-keys.ts
+
+# Emails
+/src/app/permitted-users.ts
