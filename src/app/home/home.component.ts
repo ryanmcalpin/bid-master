@@ -20,7 +20,11 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.auth.getCurrentUser()
       .takeUntil(this.ngUnsubscribe).subscribe(user => {
-        this.user = user;
+        this.db.getUserObjectById(user.uid)
+          .takeUntil(this.ngUnsubscribe).subscribe(userObj => {
+            this.user = userObj;
+            console.log(this.user)
+          })
         this.db.getBids()
         .takeUntil(this.ngUnsubscribe).subscribe(data => {
           this.bids = data;

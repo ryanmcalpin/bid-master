@@ -86,4 +86,8 @@ export class DbService {
     return formattedDate;
   }
 
+  getUserObjectById(uid) {
+    return this.db.object('/users/' + this.user.uid);
+  }
+
 }

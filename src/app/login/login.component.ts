@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.auth.getCurrentUser()
       .takeUntil(this.ngUnsubscribe).subscribe(user => {
-        user ? console.log('yee') : console.log('neee'); 
+        user ? this.router.navigate(['/']) : console.log('no user'); 
     });
     this.form = this.fb.group({
       email: ['', Validators.required],
