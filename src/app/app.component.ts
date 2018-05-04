@@ -31,6 +31,9 @@ export class AppComponent implements OnInit {
       this.user = user;
       if (this.user) {
         adminEmails.forEach(email => { this.user.email == email ? this.admin = true : null; });
+        this.router.navigate(['/']);
+      } else {
+        this.router.navigate(['/login']);
       }
     });
   }
@@ -43,8 +46,10 @@ export class AppComponent implements OnInit {
   logoClick() {
     if (this.user) {
       this.router.navigate(['/']);
-    } else {
-      this.auth.loginGoogle();
     }
+  }
+
+  logout() {
+    this.auth.logout();
   }
 }

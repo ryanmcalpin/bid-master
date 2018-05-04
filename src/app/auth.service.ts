@@ -23,20 +23,24 @@ export class AuthService {
     });
   }
 
-  loginGoogle() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  login(email, password) {
+    this.afAuth.auth.signInWithEmailAndPassword(email, password).catch(error => {
+      // handle errors
+    });
   }
+
+  // loginGoogle() {
+  //   this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  // }
 
   logout() {
-    if(confirm("Are you sure you want to leave?")){
-      this.afAuth.auth.signOut();
-    }
+    this.afAuth.auth.signOut();
   }
 
-  switchUser(){
-    this.logout();
-    this.loginGoogle();
-  }
+  // switchUser(){
+  //   this.logout();
+  //   this.loginGoogle();
+  // }
 
   getCurrentUser(){
     return this.user;

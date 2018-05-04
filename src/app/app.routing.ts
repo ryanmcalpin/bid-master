@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component'
 import { BidSheetFormComponent } from './bid-sheet-form/bid-sheet-form.component';
 import { BidSheetComponent } from './bid-sheet/bid-sheet.component';
 import { RatesComponent } from './rates/rates.component';
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
   {
@@ -22,6 +23,10 @@ const appRoutes: Routes = [
   {
     path: 'rates',
     component: RatesComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ];
 
