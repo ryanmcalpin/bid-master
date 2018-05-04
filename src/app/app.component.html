@@ -2,7 +2,7 @@
   <nav>
     <div class="nav-wrapper teal">
       <a (click)="logoClick()" class="brand-logo left">Klabby Pro</a>
-      <ul class="right">
+      <ul *ngIf="user" class="right">
         <li><a routerLink="/rates">Rates</a></li>
         <li><a routerLink="/new">New Bid</a></li>
       </ul>
@@ -11,9 +11,9 @@
 </div>
 <div class="container">
   <div class="row content">
-    <div *ngIf="admin">
+    <!-- <div *ngIf="admin">
       <a (click)="logout()">logout</a>
-    </div>
+    </div> -->
     <router-outlet></router-outlet>
   </div>
 </div>
