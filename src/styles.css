@@ -6,6 +6,10 @@ button {
   font-size: 20px !important;
 }
 
+.clickable:hover {
+  cursor: pointer;
+}
+
 
 @media only screen and (min-device-width: 320px){
   button {

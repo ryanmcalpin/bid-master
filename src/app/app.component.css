@@ -17,3 +17,7 @@ h1 span:hover {
 .header {
   margin-bottom: 0;
 }
+
+.clickable:hover {
+  text-shadow: 0 0 10px lightgrey;
+}
