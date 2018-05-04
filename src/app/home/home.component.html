@@ -3,6 +3,6 @@
 <h5>Past Bids:</h5>
 <div *ngFor="let bid of bids | reverse">
   <a routerLink="/bids/{{bid.$key}}">
-    {{bid.dateTime + ' - ' + bid.clientName + ', $' + bid.totalPrice}}
+    {{bid.dateTime + ' - ' + bid.clientName + ', $' + bid.totalPrice.toFixed(2)}}
   </a>
 </div>
