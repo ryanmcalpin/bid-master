@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 import 'rxjs/add/operator/takeUntil';
 import { Subject } from 'rxjs/Subject';
 import { DbService } from './db.service';
-import { emails } from './permitted-users';
+import { adminEmails } from './admin-users';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   routeSections;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   user: any = null;
-  userAllowed: boolean = false;
+  admin: boolean = false;
 
   constructor(private router: Router, private auth: AuthService, private db: DbService) { }
 
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
     .takeUntil(this.ngUnsubscribe).subscribe(user=>{
       this.user = user;
       if (this.user) {
-        emails.forEach(email => { this.user.email == email ? this.userAllowed = true : null; });
+        adminEmails.forEach(email => { this.user.email == email ? this.admin = true : null; });
       }
     });
   }
