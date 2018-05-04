@@ -90,4 +90,8 @@ export class DbService {
     return this.db.object('/users/' + this.user.uid);
   }
 
+  getRates() {
+    return console.log('getRates works')
+  }
+
 }

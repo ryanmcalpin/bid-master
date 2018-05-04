@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import 'rxjs/add/operator/takeUntil';
+import { Subject } from 'rxjs/Subject';
+import { DbService } from '../db.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-rates',
@@ -6,10 +10,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rates.component.css']
 })
 export class RatesComponent implements OnInit {
+  user: any = null;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
+  rates;
 
-  constructor() { }
+  constructor(public db: DbService, private auth: AuthService) { }
 
   ngOnInit() {
+    this.auth.getCurrentUser().takeUntil(this.ngUnsubscribe).subscribe(user => {
+        if (user) {
+          this.db.getUserObjectById(user.uid).takeUntil(this.ngUnsubscribe).subscribe(userObj => {
+            this.user = userObj;
+          })
+          this.db.getRates().takeUntil(this.ngUnsubscribe).subscribe(rates => {
+              this.rates = rates;
+            })
+        }
+      })
   }
 
 }
