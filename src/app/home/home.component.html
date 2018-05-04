@@ -1,8 +1,10 @@
 <br>
-<h4>Welcome, {{user != null ? user.displayName : "w"}}</h4>
-<h5>Past Bids:</h5>
-<div *ngFor="let bid of bids | reverse">
-  <a routerLink="/bids/{{bid.$key}}">
-    {{bid.dateTime + ' - ' + bid.clientName + ', $' + bid.totalPrice.toFixed(2)}}
-  </a>
+<div *ngIf="user">
+  <h4>Welcome, {{user.displayName}}</h4>
+  <h5>Past Bids:</h5>
+  <div *ngFor="let bid of bids | reverse">
+    <a routerLink="/bids/{{bid.$key}}">
+      {{bid.dateTime + ' - ' + bid.clientName + ', $' + bid.totalPrice.toFixed(2)}}
+    </a>
+  </div>
 </div>
