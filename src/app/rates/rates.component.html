@@ -1,3 +1,8 @@
-<p>
-  rates works!
-</p>
+<div *ngIf="user">
+  <div *ngFor="let rate of rates ">
+    <div>
+      <label for="">{{rate.$key}}</label>
+      <input type="text" name="" value="{{rate.$value}}">
+    </div>
+  </div>
+</div>

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { DbService } from '../db.service';
+import { AuthService } from '../auth.service';
+import 'rxjs/add/operator/takeUntil';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-bid-sheet-form',
@@ -9,7 +12,10 @@ import { DbService } from '../db.service';
   styleUrls: ['./bid-sheet-form.component.css']
 })
 export class BidSheetFormComponent implements OnInit {
-  title: string = 'KlabbyPro';
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
+  title: string = 'Klabby Pro';
+  user: any = null;
+  rates: any = null;
   form: FormGroup;
   siding: number;
   soffits: number;
@@ -34,35 +40,6 @@ export class BidSheetFormComponent implements OnInit {
   additionalFlat: number;
   clientName: string;
 
-  // GALLONS
-  sidingPerGallon: number; // 300
-  soffitsPerGallon: number; // 150
-  fasciaPerGallon: number; // 100
-  foundationPerGallon: number; // 300
-
-  // HOURS
-  sidingPerHour: number; // 100
-  soffitsPerHour: number; // 10
-  fasciaPerHour: number; // 20
-  windowFramesPerHour: number; // 1
-  foundationPerHour: number; // 300
-  scrapingPerHour: number; // 10
-  obstructionsPerHour: number // 3
-  doorsPerHour: number // .6667
-  doorFramesPerHour: number // 1
-  pillarsPerHour: number // 2
-  glazingPerHour: number // 5
-
-  // MISC
-  sidingRepairPerTenSF: number // 225
-  pricePerTubeCaulk: number // 5
-  pricePerRollPlastic: number // 15
-  pricePerRollTape: number // 6
-
-  // TOTALS
-  pricePerGallonPaint: number // 37
-  pricePerGallonPrimer: number // 25
-
   totalGallons: number = 0;
   totalHours: number = 0;
 
@@ -71,35 +48,44 @@ export class BidSheetFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private db: DbService) {
+              private db: DbService,
+              private auth: AuthService) {
 
   }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      siding: ['', Validators.required],
-      soffits: ['', Validators.required],
-      fascia: ['', Validators.required],
-      glazing: ['', Validators.required],
-      foundation: ['', Validators.required],
-      scraping: ['', Validators.required],
-      windows: ['', Validators.required],
-      windowFrames: ['', Validators.required],
-      doors: ['', Validators.required],
-      doorFrames: ['', Validators.required],
-      obstructions: ['', Validators.required],
-      pillars: ['', Validators.required],
-      pressure: ['', Validators.required],
-      vegetation: ['', Validators.required],
-      sidingRepair: ['', Validators.required],
-      primer: ['', Validators.required],
-      caulk: ['', Validators.required],
-      plastic: ['', Validators.required],
-      tape: ['', Validators.required],
-      additionalHours: ['', Validators.required],
-      additionalFlat: ['', Validators.required],
-      clientName: ['', Validators.required],
-    })
+    this.auth.getCurrentUser().takeUntil(this.ngUnsubscribe).subscribe(user => {
+        if (user) {
+          this.db.getRates(user.uid).takeUntil(this.ngUnsubscribe).subscribe(rates => {
+            this.rates = rates;
+          })
+        }
+      })
+
+      this.form = this.fb.group({
+        siding: ['', Validators.required],
+        soffits: ['', Validators.required],
+        fascia: ['', Validators.required],
+        glazing: ['', Validators.required],
+        foundation: ['', Validators.required],
+        scraping: ['', Validators.required],
+        windows: ['', Validators.required],
+        windowFrames: ['', Validators.required],
+        doors: ['', Validators.required],
+        doorFrames: ['', Validators.required],
+        obstructions: ['', Validators.required],
+        pillars: ['', Validators.required],
+        pressure: ['', Validators.required],
+        vegetation: ['', Validators.required],
+        sidingRepair: ['', Validators.required],
+        primer: ['', Validators.required],
+        caulk: ['', Validators.required],
+        plastic: ['', Validators.required],
+        tape: ['', Validators.required],
+        additionalHours: ['', Validators.required],
+        additionalFlat: ['', Validators.required],
+        clientName: ['', Validators.required],
+      })
   }
 
   calculateBid() {
@@ -151,10 +137,10 @@ export class BidSheetFormComponent implements OnInit {
 
 
     var subgallons = {};
-    var sidingGallons = this.siding / this.sidingPerGallon;
-    var soffitsGallons = this.soffits / this.soffitsPerGallon;
-    var fasciaGallons = this.fascia / this.fasciaPerGallon;
-    var foundationGallons = this.foundation / this.foundationPerGallon;
+    var sidingGallons = this.siding / this.rates.sidingSFPerGallon;
+    var soffitsGallons = this.soffits / this.rates.soffitsSFPerGallon;
+    var fasciaGallons = this.fascia / this.rates.fasciaLFPerGallon;
+    var foundationGallons = this.foundation / this.rates.foundationSFPerGallon;
     subgallons = { sidingGallons: +sidingGallons.toFixed(2), soffitsGallons: +soffitsGallons.toFixed(2), fasciaGallons: +fasciaGallons.toFixed(2), foundationGallons: +foundationGallons.toFixed(2) };
 
     this.totalGallons = 0;
@@ -165,18 +151,18 @@ export class BidSheetFormComponent implements OnInit {
     }
 
     var subhours = {};
-    var sidingHours = this.siding / this.sidingPerHour;
-    var soffitsHours = this.soffits / this.soffitsPerHour;
-    var fasciaHours = this.fascia / this.fasciaPerHour;
-    var windowsHours = this.windows;
-    var windowFramesHours = this.windowFrames / this.windowFramesPerHour;
-    var foundationHours = this.foundation / this.foundationPerHour;
-    var scrapingHours = this.scraping / this.scrapingPerHour;
-    var obstructionsHours = this.obstructions / this.obstructionsPerHour;
-    var doorsHours = this.doors / this.doorsPerHour;
-    var doorFramesHours = this.doorFrames / this.doorFramesPerHour;
-    var pillarsHours = this.pillars / this.pillarsPerHour;
-    var glazingHours = this.glazing / this.glazingPerHour;
+    var sidingHours = this.siding / this.rates.sidingSFPerHour;
+    var soffitsHours = this.soffits / this.rates.soffitSFPerHour;
+    var fasciaHours = this.fascia / this.rates.fasciaLFPerHour;
+    var windowsHours = this.windows / this.rates.windowsPerHour;
+    var windowFramesHours = this.windowFrames / this.rates.windowFramesPerHour;
+    var foundationHours = this.foundation / this.rates.foundationSFPerHour;
+    var scrapingHours = this.scraping / this.rates.scrapingSFPerHour;
+    var obstructionsHours = this.obstructions / this.rates.obstructionsPerHour;
+    var doorsHours = this.doors / this.rates.doorsPerHour;
+    var doorFramesHours = this.doorFrames / this.rates.doorFramesPerHour;
+    var pillarsHours = this.pillars / this.rates.pillarsPerHour;
+    var glazingHours = this.glazing / this.rates.glazingLFPerHour;
     subhours = { sidingHours: +sidingHours.toFixed(2), soffitsHours: +soffitsHours.toFixed(2), fasciaHours: +fasciaHours.toFixed(2), windowsHours: +windowsHours.toFixed(2), windowFramesHours: +windowFramesHours.toFixed(2), foundationHours: +foundationHours.toFixed(2), scrapingHours: +scrapingHours.toFixed(2), obstructionsHours: +obstructionsHours.toFixed(2), doorsHours: +doorsHours.toFixed(2), doorFramesHours: +doorFramesHours.toFixed(2), pillarsHours: +pillarsHours.toFixed(2), glazingHours: +glazingHours.toFixed(2) };
 
     this.totalHours = 0;
@@ -187,12 +173,12 @@ export class BidSheetFormComponent implements OnInit {
     }
 
     var subtotals = {};
-    var sidingRepairSubtotal = this.sidingRepair / 10 * this.sidingRepairPerTenSF;
-    var paintSubtotal = this.totalGallons * this.pricePerGallonPaint;
-    var primerSubtotal = this.primer * this.pricePerGallonPrimer;
-    var caulkSubtotal = this.caulk * this.pricePerTubeCaulk;
-    var plasticSubtotal = this.plastic * this.pricePerRollPlastic;
-    var tapeSubtotal = this.tape * this.pricePerRollTape;
+    var sidingRepairSubtotal = this.sidingRepair / 10 * this.rates.sidingRepairPerTenSF;
+    var paintSubtotal = this.totalGallons * this.rates.pricePerGallonPaint;
+    var primerSubtotal = this.primer * this.rates.pricePerGallonPrimer;
+    var caulkSubtotal = this.caulk * this.rates.pricePerTubeCaulk;
+    var plasticSubtotal = this.plastic * this.rates.pricePerRollPlastic;
+    var tapeSubtotal = this.tape * this.rates.pricePerRollTape;
     var wagesSubtotal = this.totalHours * this.adjustedWage;
     subtotals = { sidingRepairSubtotal: +sidingRepairSubtotal.toFixed(2), paintSubtotal: +paintSubtotal.toFixed(2), primerSubtotal: +primerSubtotal.toFixed(2), caulkSubtotal: +caulkSubtotal.toFixed(2), plasticSubtotal: +plasticSubtotal.toFixed(2), tapeSubtotal: +tapeSubtotal.toFixed(2), wagesSubtotal: +wagesSubtotal.toFixed(2) }
 
@@ -208,5 +194,8 @@ export class BidSheetFormComponent implements OnInit {
     this.router.navigate(['bids', fbKey]);
   }
 
-
+  ngOnDestroy(){
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 }

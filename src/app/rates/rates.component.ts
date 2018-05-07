@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/takeUntil';
+import { FirebaseListObservable } from 'angularfire2/database';
 import { Subject } from 'rxjs/Subject';
 import { DbService } from '../db.service';
 import { AuthService } from '../auth.service';
@@ -12,7 +13,7 @@ import { AuthService } from '../auth.service';
 export class RatesComponent implements OnInit {
   user: any = null;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  rates;
+  rates: FirebaseListObservable<any>;
 
   constructor(public db: DbService, private auth: AuthService) { }
 
@@ -22,9 +23,14 @@ export class RatesComponent implements OnInit {
           this.db.getUserObjectById(user.uid).takeUntil(this.ngUnsubscribe).subscribe(userObj => {
             this.user = userObj;
           })
-          // this.db.getRates().takeUntil(this.ngUnsubscribe).subscribe(rates => {
-          //     this.rates = rates;
-          //   })
+          this.db.getRates(user.uid).takeUntil(this.ngUnsubscribe).subscribe(rates => {
+              this.rates = rates;
+              for (var key in this.rates) {
+                if (this.rates.hasOwnProperty(key)) {
+                  console.log(this.rates[key]);
+                }
+              }
+            })
         }
       })
   }

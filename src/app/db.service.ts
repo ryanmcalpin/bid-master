@@ -9,6 +9,7 @@ import { User } from './user.model';
 @Injectable()
 export class DbService {
   bids: FirebaseListObservable<any>;
+  rates: FirebaseListObservable<any>;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   user: any;
 
@@ -18,6 +19,7 @@ export class DbService {
       this.user = user;
       if (this.user) {
         this.bids = db.list('/users/' + user.uid + '/bids');
+        this.rates = db.list('users/' + user.uid + '/rates');
       }
     });
   }
@@ -87,11 +89,11 @@ export class DbService {
   }
 
   getUserObjectById(uid) {
-    return this.db.object('/users/' + this.user.uid);
+    return this.db.object('/users/' + uid);
   }
 
-  getRates() {
-    return console.log('getRates works')
+  getRates(uid) {
+    return this.db.list('/users/' + uid + '/rates');
   }
 
 }

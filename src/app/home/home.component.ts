@@ -26,8 +26,8 @@ export class HomeComponent implements OnInit {
             this.user = userObj;
           })
           this.db.getBids()
-            .takeUntil(this.ngUnsubscribe).subscribe(data => {
-              this.bids = data;
+            .takeUntil(this.ngUnsubscribe).subscribe(bids => {
+              this.bids = bids;
           })
         }
       })
