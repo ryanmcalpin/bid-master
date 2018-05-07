@@ -22,9 +22,9 @@ export class RatesComponent implements OnInit {
           this.db.getUserObjectById(user.uid).takeUntil(this.ngUnsubscribe).subscribe(userObj => {
             this.user = userObj;
           })
-          this.db.getRates().takeUntil(this.ngUnsubscribe).subscribe(rates => {
-              this.rates = rates;
-            })
+          // this.db.getRates().takeUntil(this.ngUnsubscribe).subscribe(rates => {
+          //     this.rates = rates;
+          //   })
         }
       })
   }
