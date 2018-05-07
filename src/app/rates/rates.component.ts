@@ -25,11 +25,6 @@ export class RatesComponent implements OnInit {
           })
           this.db.getRates(user.uid).takeUntil(this.ngUnsubscribe).subscribe(rates => {
               this.rates = rates;
-              for (var key in this.rates) {
-                if (this.rates.hasOwnProperty(key)) {
-                  console.log(this.rates[key]);
-                }
-              }
             })
         }
       })
