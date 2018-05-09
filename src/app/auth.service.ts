@@ -29,18 +29,9 @@ export class AuthService {
     });
   }
 
-  // loginGoogle() {
-  //   this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-  // }
-
   logout() {
     this.afAuth.auth.signOut();
   }
-
-  // switchUser(){
-  //   this.logout();
-  //   this.loginGoogle();
-  // }
 
   getCurrentUser(){
     return this.user;

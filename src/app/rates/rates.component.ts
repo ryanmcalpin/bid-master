@@ -72,4 +72,9 @@ export class RatesComponent implements OnInit {
     this.db.updateRates(rates);
   }
 
+  ngOnDestroy(){
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
 }

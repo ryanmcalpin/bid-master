@@ -94,11 +94,14 @@ export class DbService {
 
   getRates(uid) {
     return this.rates;
-    // return this.db.list('/users/' + uid + '/rates');
   }
 
   updateRates(rates) {
-    this.rates.update('/', rates);
+    this.rates.update('/', rates).then(() => {
+      alert("Rates saved!");
+    }).catch(error => {
+      alert("Rates could not be saved.\n" + error);
+    }
   }
 
 }
