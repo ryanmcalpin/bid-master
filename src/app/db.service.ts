@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import 'rxjs/add/operator/takeUntil';
 import { Subject } from 'rxjs/Subject';
 import { User } from './user.model';
+import { originalRates } from './rates';
 
 @Injectable()
 export class DbService {
@@ -94,6 +95,10 @@ export class DbService {
 
   getRates(uid) {
     return this.rates;
+  }
+
+  resetRates() {
+    this.rates.update('/', originalRates);
   }
 
   updateRates(rates) {

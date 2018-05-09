@@ -44,3 +44,6 @@ Thumbs.db
 
 # Emails
 /src/app/permitted-users.ts
+
+# User Rates
+/src/app/rates.ts
