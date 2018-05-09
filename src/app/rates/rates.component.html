@@ -1,8 +1,11 @@
-<div *ngIf="user">
-  <div *ngFor="let rate of rates ">
-    <div>
-      <label for="">{{rate.$key}}</label>
-      <input type="text" name="" value="{{rate.$value}}">
+<div *ngIf="rates">
+  <form class="col s12" [formGroup]="form">
+    <div *ngFor="let rate of rates">
+      <div class="col s12">
+        <label for="{{rate.$key}}">{{rate.$key}}</label>
+        <input id={{rate.$key}} type="number" formControlName="{{rate.$key}}" required>
+      </div>
     </div>
-  </div>
+    <button type="button" class="waves-effect waves-light btn" (click)="saveRates()">Save Rates</button>
+  </form>
 </div>
