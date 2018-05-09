@@ -106,7 +106,7 @@ export class DbService {
       alert("Rates saved!");
     }).catch(error => {
       alert("Rates could not be saved.\n" + error);
-    }
+    });
   }
 
 }
