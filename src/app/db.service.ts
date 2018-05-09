@@ -93,7 +93,12 @@ export class DbService {
   }
 
   getRates(uid) {
-    return this.db.list('/users/' + uid + '/rates');
+    return this.rates;
+    // return this.db.list('/users/' + uid + '/rates');
+  }
+
+  updateRates(rates) {
+    this.rates.update('/', rates);
   }
 
 }

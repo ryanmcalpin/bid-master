@@ -44,7 +44,32 @@ export class RatesComponent implements OnInit {
   }
 
   saveRates() {
-    console.log('forrm')
+    var rates = {
+      doorFramesPerHour: this.form.value.doorFramesPerHour,
+      doorsPerHour: this.form.value.doorsPerHour,
+      fasciaLFPerGallon: this.form.value.fasciaLFPerGallon,
+      fasciaLFPerHour: this.form.value.fasciaLFPerHour,
+      foundationSFPerGallon: this.form.value.foundationSFPerGallon,
+      foundationSFPerHour: this.form.value.foundationSFPerHour,
+      glazingLFPerHour: this.form.value.glazingLFPerHour,
+      obstructionsPerHour: this.form.value.obstructionsPerHour,
+      pillarsPerHour: this.form.value.pillarsPerHour,
+      pricePerGallonPaint: this.form.value.pricePerGallonPaint,
+      pricePerGallonPrimer: this.form.value.pricePerGallonPrimer,
+      pricePerRollPlastic: this.form.value.pricePerRollPlastic,
+      pricePerRollTape: this.form.value.pricePerRollTape,
+      pricePerTubeCaulk: this.form.value.pricePerTubeCaulk,
+      scrapingSFPerHour: this.form.value.scrapingSFPerHour,
+      sidingRepairPerTenSF: this.form.value.sidingRepairPerTenSF,
+      sidingSFPerGallon: this.form.value.sidingSFPerGallon,
+      sidingSFPerHour: this.form.value.sidingSFPerHour,
+      soffitSFPerGallon: this.form.value.soffitSFPerGallon,
+      soffitSFPerHour: this.form.value.soffitSFPerHour,
+      windowFramesPerHour: this.form.value.windowFramesPerHour,
+      windowsPerHour: this.form.value.windowsPerHour
+    }
+
+    this.db.updateRates(rates);
   }
 
 }

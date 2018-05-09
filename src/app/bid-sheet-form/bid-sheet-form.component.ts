@@ -113,27 +113,29 @@ export class BidSheetFormComponent implements OnInit {
     this.additionalFlat = this.form.value.additionalFlat;
     this.clientName = this.form.value.clientName;
 
-    var inputValues = { siding: this.siding,
-                        soffits: this.soffits,
-                        fascia: this.fascia,
-                        glazing: this.glazing,
-                        foundation: this.foundation,
-                        scraping: this.scraping,
-                        windows: this.windows,
-                        windowFrames: this.windowFrames,
-                        doors: this.doors,
-                        doorFrames: this.doorFrames,
-                        obstructions: this.obstructions,
-                        pillars: this.pillars,
-                        pressure: this.pressure,
-                        vegetation: this.vegetation,
-                        sidingRepair: this.sidingRepair,
-                        primer: this.primer,
-                        caulk: this.caulk,
-                        plastic: this.plastic,
-                        tape: this.tape,
-                        additionalHours: this.additionalHours,
-                        additionalFlat: this.additionalFlat};
+    var inputValues = {
+      siding: this.siding,
+      soffits: this.soffits,
+      fascia: this.fascia,
+      glazing: this.glazing,
+      foundation: this.foundation,
+      scraping: this.scraping,
+      windows: this.windows,
+      windowFrames: this.windowFrames,
+      doors: this.doors,
+      doorFrames: this.doorFrames,
+      obstructions: this.obstructions,
+      pillars: this.pillars,
+      pressure: this.pressure,
+      vegetation: this.vegetation,
+      sidingRepair: this.sidingRepair,
+      primer: this.primer,
+      caulk: this.caulk,
+      plastic: this.plastic,
+      tape: this.tape,
+      additionalHours: this.additionalHours,
+      additionalFlat: this.additionalFlat
+    };
 
 
     var subgallons = {};
