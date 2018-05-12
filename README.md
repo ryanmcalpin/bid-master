@@ -28,6 +28,8 @@ A custom bid sheet calculator for a paint contractor. Made with angular and mate
 * Navigate to localhost:4200 in a browser
 
 ## Improvements
+* Add form option for interior bids, separate firebase node
+* Add more client info fields: address, phone, status(?)
 * Implement validators
 * Add bid detail buttons functionality
 * Add confirm popup when trying to leave new bid screen
