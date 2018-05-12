@@ -1,4 +1,4 @@
-# klabby-pro
+# bid-master
 A custom bid sheet calculator for a paint contractor. Made with angular and materialize.
 
 ## Requirements
