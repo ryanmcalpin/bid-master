@@ -37,4 +37,4 @@ A custom bid sheet calculator for a paint contractor. Made with angular and mate
 
 ## Legal
 Copyright (c) 2018 Copyright Ryan McAlpin, All Rights Reserved.<br>
-This app is licensed under the MIT license.
+This web app is licensed under the MIT license.
