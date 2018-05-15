@@ -139,10 +139,10 @@ export class BidSheetFormComponent implements OnInit {
 
 
     var subgallons = {};
-    var sidingGallons = this.siding / this.rates.sidingSFPerGallon;
-    var soffitsGallons = this.soffits / this.rates.soffitsSFPerGallon;
-    var fasciaGallons = this.fascia / this.rates.fasciaLFPerGallon;
-    var foundationGallons = this.foundation / this.rates.foundationSFPerGallon;
+    var sidingGallons = this.siding / this.rates[16].$value;
+    var soffitsGallons = this.soffits / this.rates[18].$value;
+    var fasciaGallons = this.fascia / this.rates[2].$value;
+    var foundationGallons = this.foundation / this.rates[4].$value;
     subgallons = { sidingGallons: +sidingGallons.toFixed(2), soffitsGallons: +soffitsGallons.toFixed(2), fasciaGallons: +fasciaGallons.toFixed(2), foundationGallons: +foundationGallons.toFixed(2) };
 
     this.totalGallons = 0;
@@ -153,18 +153,18 @@ export class BidSheetFormComponent implements OnInit {
     }
 
     var subhours = {};
-    var sidingHours = this.siding / this.rates.sidingSFPerHour;
-    var soffitsHours = this.soffits / this.rates.soffitSFPerHour;
-    var fasciaHours = this.fascia / this.rates.fasciaLFPerHour;
-    var windowsHours = this.windows / this.rates.windowsPerHour;
-    var windowFramesHours = this.windowFrames / this.rates.windowFramesPerHour;
-    var foundationHours = this.foundation / this.rates.foundationSFPerHour;
-    var scrapingHours = this.scraping / this.rates.scrapingSFPerHour;
-    var obstructionsHours = this.obstructions / this.rates.obstructionsPerHour;
-    var doorsHours = this.doors / this.rates.doorsPerHour;
-    var doorFramesHours = this.doorFrames / this.rates.doorFramesPerHour;
-    var pillarsHours = this.pillars / this.rates.pillarsPerHour;
-    var glazingHours = this.glazing / this.rates.glazingLFPerHour;
+    var sidingHours = this.siding / this.rates[17].$value;
+    var soffitsHours = this.soffits / this.rates[19].$value;
+    var fasciaHours = this.fascia / this.rates[3].$value;
+    var windowsHours = this.windows / this.rates[21].$value;
+    var windowFramesHours = this.windowFrames / this.rates[20].$value;
+    var foundationHours = this.foundation / this.rates[5].$value;
+    var scrapingHours = this.scraping / this.rates[14].$value;
+    var obstructionsHours = this.obstructions / this.rates[7].$value;
+    var doorsHours = this.doors / this.rates[1].$value;
+    var doorFramesHours = this.doorFrames / this.rates[0].$value;
+    var pillarsHours = this.pillars / this.rates[8].$value;
+    var glazingHours = this.glazing / this.rates[6].$value;
     subhours = { sidingHours: +sidingHours.toFixed(2), soffitsHours: +soffitsHours.toFixed(2), fasciaHours: +fasciaHours.toFixed(2), windowsHours: +windowsHours.toFixed(2), windowFramesHours: +windowFramesHours.toFixed(2), foundationHours: +foundationHours.toFixed(2), scrapingHours: +scrapingHours.toFixed(2), obstructionsHours: +obstructionsHours.toFixed(2), doorsHours: +doorsHours.toFixed(2), doorFramesHours: +doorFramesHours.toFixed(2), pillarsHours: +pillarsHours.toFixed(2), glazingHours: +glazingHours.toFixed(2) };
 
     this.totalHours = 0;
@@ -175,12 +175,12 @@ export class BidSheetFormComponent implements OnInit {
     }
 
     var subtotals = {};
-    var sidingRepairSubtotal = this.sidingRepair / 10 * this.rates.sidingRepairPerTenSF;
-    var paintSubtotal = this.totalGallons * this.rates.pricePerGallonPaint;
-    var primerSubtotal = this.primer * this.rates.pricePerGallonPrimer;
-    var caulkSubtotal = this.caulk * this.rates.pricePerTubeCaulk;
-    var plasticSubtotal = this.plastic * this.rates.pricePerRollPlastic;
-    var tapeSubtotal = this.tape * this.rates.pricePerRollTape;
+    var sidingRepairSubtotal = this.sidingRepair / 10 * this.rates[15].$value;
+    var paintSubtotal = this.totalGallons * this.rates[9].$value;
+    var primerSubtotal = this.primer * this.rates[10].$value;
+    var caulkSubtotal = this.caulk * this.rates[13].$value;
+    var plasticSubtotal = this.plastic * this.rates[11].$value;
+    var tapeSubtotal = this.tape * this.rates[12].$value;
     var wagesSubtotal = this.totalHours * this.adjustedWage;
     subtotals = { sidingRepairSubtotal: +sidingRepairSubtotal.toFixed(2), paintSubtotal: +paintSubtotal.toFixed(2), primerSubtotal: +primerSubtotal.toFixed(2), caulkSubtotal: +caulkSubtotal.toFixed(2), plasticSubtotal: +plasticSubtotal.toFixed(2), tapeSubtotal: +tapeSubtotal.toFixed(2), wagesSubtotal: +wagesSubtotal.toFixed(2) }
 
@@ -190,6 +190,11 @@ export class BidSheetFormComponent implements OnInit {
         totalPrice += subtotals[key];
       }
     }
+
+    console.log(this.rates)
+    console.log(this.rates[0])
+    console.log(this.rates[0].$key)
+    console.log(this.rates[0].$value)
 
     var fbKey = this.db.createBid(+totalPrice.toFixed(2), +this.totalHours.toFixed(2), +this.totalGallons.toFixed(2), subtotals, subhours, subgallons, this.clientName, inputValues);
 
